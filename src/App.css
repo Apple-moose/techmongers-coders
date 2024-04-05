@@ -38,12 +38,12 @@
 }
 
 .greybox {
-  height: 40px;
-  width: 40px;;
   font-size: large;
   margin-right: 0.5rem;
   margin-bottom: 0.2rem;
   background-color: grey;
   color: white;
+  font-weight: bold;
   border-radius: 5px;
+  padding: 3px 5px;
 }

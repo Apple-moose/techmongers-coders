@@ -1,41 +1,31 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 import moment from "moment";
+import { fetchPosts } from "../store/feed/actions";
+import { useDispatch, useSelector} from "react-redux";
+import { selectFeedPosts } from "../store/feed/selectors";
 
-const API_URL = `https://coders-network-api.onrender.com`;
 
 export default function HomePage() {
-  const [data, setData] = useState({
-    loading: true,
-    posts: [],
-  });
 
-  async function fetchPosts() {
-    setData({ ...data, loading: true });
+const dispatch = useDispatch();
+const posts = useSelector(selectFeedPosts);
 
-    const response = await axios.get(`${API_URL}/posts`);
-    const posts = response.data.rows;
-
-    setData({
-      loading: false,
-      posts: posts,
-    });
-  }
-
-  useEffect(() => {
-    fetchPosts();
-  }, []);
+useEffect(() => {
+    dispatch(fetchPosts);
+}, [dispatch]);
 
   return (
     <div>
       <h1>Posts:</h1>
-      {data.loading
+      {/* {posts.loading */}
+      {!posts.length
         ? "LOADING"
-        : data.posts.map((post) => (
+        : posts.map((post) => (
             <p key={post.id}>
               <h2>{post.title}</h2>
               <p>
-                {moment(post.updatedAt).format("DD-MM-YYYY")} *{" "}
+                {moment(post.createdAt).format("DD-MM-YYYY")} *{" "}
                 {post.tags.map((p) => (
                   <span className="greybox">{p.tag} </span>
                 ))}
