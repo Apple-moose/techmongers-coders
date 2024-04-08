@@ -1,24 +1,21 @@
 import React, { useEffect } from "react";
 import moment from "moment";
-import { fetchPosts } from "../store/feed/actions";
+import { fetchPosts } from "../store/postPage/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { selectFeedPosts } from "../store/feed/selectors";
+import { selectPostPage } from "../store/postPage/selectors";
 
-export default function HomePage() {
+export default function postPage() {
   const dispatch = useDispatch();
-  const posts = useSelector(selectFeedPosts);
-
-  // REMOVE <ReactStrictMode> in index.js to stop rendering twice!!!
+  const post = useSelector(selectPostPage);
 
   useEffect(() => {
-    dispatch(fetchPosts);
-  }, [dispatch]);
+    dispatch(fetchPosts(id));
+  }, [dispatch, id]);
 
   return (
     <div>
-      <h1>Posts:</h1>
-      {/* {posts.loading */}
-      {!posts.length
+      <h1>Post Page!:</h1>
+      {/* {!posts.length
         ? "LOADING"
         : posts.map((post) => (
             <p key={post.id}>
@@ -31,7 +28,7 @@ export default function HomePage() {
               </p>
             </p>
           ))}
-      <button onClick={() => dispatch(fetchPosts)}>Load 5 more</button>
+      <button onClick={() => dispatch(fetchPosts)}>Load 5 more</button> */}
     </div>
   );
 }
