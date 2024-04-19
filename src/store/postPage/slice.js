@@ -14,11 +14,10 @@ const postPageSlice = createSlice({
       state.loading = true;
     },
     postsFullyFetched: (state, action) => {
-      console.log("postsFullyFetchedActions: ", action);
-      // We will get 5 posts at a time so it's important we keep the posts
-      // currently in the state and add the new incoming ones at the end of the array
-      state.posts = [...state.posts, ...action.payload];
+      console.log("postsFullyFetchedActions: ", action.payload);
       state.loading = false;
+      state.post = action.payload.post;
+      state.comments = action.payload.comments;
     },
   },
 });

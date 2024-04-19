@@ -1,34 +1,51 @@
-import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 import moment from "moment";
+import ReactMarkdown from "react-markdown";
 import { fetchPosts } from "../store/postPage/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { selectPostPage } from "../store/postPage/selectors";
+import { selectPostAndComments } from "../store/postPage/selectors";
 
-export default function postPage() {
+export default function PostPage() {
+  const { id } = useParams();
   const dispatch = useDispatch();
-  const post = useSelector(selectPostPage);
 
   useEffect(() => {
     dispatch(fetchPosts(id));
   }, [dispatch, id]);
 
+  const post = useSelector(selectPostAndComments);
+
   return (
     <div>
-      <h1>Post Page!:</h1>
-      {/* {!posts.length
-        ? "LOADING"
-        : posts.map((post) => (
-            <p key={post.id}>
-              <h2>{post.title}</h2>
-              <p>
-                {moment(post.createdAt).format("DD-MM-YYYY")} *{" "}
-                {post.tags.map((p) => (
-                  <span className="greybox">{p.tag} </span>
+      {!post ? (
+        <p>Loading...</p>
+      ) : (
+        <>
+          <h1>{post.post.title}</h1>
+          <p className="meta">
+            by: {post.post.developer.name} {""}
+            {moment(post.post.createdAt).format("DD-MM-YYYY")} *{" "}
+            {post.post.tags.map((p) => (
+              <span className="greybox">{p.tag} </span>
+            ))}
+          </p>
+          <ReactMarkdown children={post.post.content} />
+          <h2>Comments</h2>
+          <p>
+            {" "}
+            {post.comments.count === 0 ? (
+              <p>No Comments so far!🤨</p>
+            ) : (
+              <>
+                {post.comments.rows.map((c) => (
+                  <span className="meta">{c.text} </span>
                 ))}
-              </p>
-            </p>
-          ))}
-      <button onClick={() => dispatch(fetchPosts)}>Load 5 more</button> */}
+              </>
+            )}
+          </p>
+        </>
+      )}
     </div>
   );
 }

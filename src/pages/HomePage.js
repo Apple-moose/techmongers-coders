@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import moment from "moment";
 import { fetchPosts } from "../store/feed/actions";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,7 +23,7 @@ export default function HomePage() {
         ? "LOADING"
         : posts.map((post) => (
             <p key={post.id}>
-              <h2>{post.title}</h2>
+              <h2><Link to={`/post/${post.id}`}>{post.title}</Link></h2>
               <p>
                 {moment(post.createdAt).format("DD-MM-YYYY")} *{" "}
                 {post.tags.map((p) => (
