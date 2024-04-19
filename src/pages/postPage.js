@@ -20,7 +20,7 @@ export default function PostPage() {
 
   return (
     <div>
-      <button onClick={() => navigate(-1)}>BACK TO POST HOMEPAGE</button>
+      {/* <button onClick={() => navigate(-1)}>BACK TO POST HOMEPAGE</button> */}
       {!post ? (
         <p>Loading...</p>
       ) : (

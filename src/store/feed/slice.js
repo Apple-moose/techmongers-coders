@@ -12,6 +12,8 @@ const feedSlice = createSlice({
     startLoading: (state) => {
       state.loading = true;
     },
+    reset: (state) => {
+      state.posts = [];},
     postsFetched: (state, action) => {
       console.log("postsFetchedActions: ", action);
       // We will get 5 posts at a time so it's important we keep the posts
@@ -22,6 +24,6 @@ const feedSlice = createSlice({
   },
 });
 
-export const { startLoading, postsFetched } = feedSlice.actions;
+export const { startLoading, reset, postsFetched } = feedSlice.actions;
 
 export default feedSlice.reducer;
