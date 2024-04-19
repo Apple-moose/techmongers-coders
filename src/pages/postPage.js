@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import ReactMarkdown from "react-markdown";
 import { fetchPosts } from "../store/postPage/actions";
@@ -7,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectPostAndComments } from "../store/postPage/selectors";
 
 export default function PostPage() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const dispatch = useDispatch();
 
@@ -18,6 +20,7 @@ export default function PostPage() {
 
   return (
     <div>
+      <button onClick={() => navigate(-1)}>BACK TO POST HOMEPAGE</button>
       {!post ? (
         <p>Loading...</p>
       ) : (
