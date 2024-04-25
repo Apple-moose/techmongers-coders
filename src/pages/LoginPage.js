@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "../store/auth/actions";
+import { useDispatch } from "react-redux";
+import { useNavigate } from 'react-router-dom';
+import { Login } from "../store/auth/actions";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   function handleSubmit(event) {
     event.preventDefault();
-    // TODO
-    // console.log("TODO login with:", email, password);
-    dispatch(login(email, password));
+    dispatch(Login(email, password, navigate));
   }
 
   return (

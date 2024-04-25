@@ -5,8 +5,18 @@ import HomePage from "./pages/HomePage";
 import PostPage from "./pages/PostPage";
 import LoginPage from "./pages/LoginPage";
 import Toolbar from "./components/Toolbar";
+import { useEffect } from "react";
+import { useDispatch } from 'react-redux';
+import { LogInConfirmation } from "./store/auth/actions";
 
 function App() {
+
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  // dispatch(LogInConfirmation());
+  // }, []);
+
   return (
     <div>
       <Toolbar />

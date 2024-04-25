@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { selectAuth } from "../store/auth/selectors";
+import { userLogOut } from "../store/auth/slice";
 
 export default function Toolbar() {
+  const dispatch = useDispatch();
   const userName = useSelector(selectAuth);
-  console.log(userName.me);
+
   return (
     <div className="App-header">
       <h2 style={{ color: "white" }}>
@@ -14,7 +16,12 @@ export default function Toolbar() {
         {!userName.me ? (
           <Link to={"./login"}>login</Link>
         ) : (
-          <h3>Welcome {userName.me}</h3>
+          <>
+            <h3>
+              Welcome {userName.me} {""}
+              <button onClick={() => dispatch(userLogOut())}>Log out!</button>
+            </h3>
+          </>
         )}
       </h2>
     </div>

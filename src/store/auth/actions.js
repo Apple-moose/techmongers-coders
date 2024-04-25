@@ -1,8 +1,9 @@
 import axios from "axios";
 import { startLoading, getToken, userLoggedIn } from "./slice";
-// A thunk creator
-export function login(email, password) {
-  // Return the thunk itself, i.e. a function
+// import { useNavigate } from "react-router-dom";
+
+export function Login(email, password, navigate) {
+
   return function thunk(dispatch, getState) {
     // make a POST API request to `/login`
     //default is kelley@codaisseur.com password:abcd
@@ -18,11 +19,8 @@ export function login(email, password) {
       })
       .catch((err) => console.log("Login Error", err));
 
-    //Fetch user data once token is registered....
-
     const tokenReceived = getState().auth.accessToken;
 
-    // console.log("state of accessToken: ", tokenReceived);
     axios
       .get("https://coders-network-api.onrender.com/me", {
         headers: { Authorization: `Bearer ${tokenReceived} ` },
@@ -31,8 +29,21 @@ export function login(email, password) {
         const userName = data.data.name;
         dispatch(startLoading());
         dispatch(userLoggedIn(userName));
-        // console.log("UserName: ", data.data.name);
+        // Catch logged-in confirmation here!!!!
+        //???for some reason call useNavigate on the loginPage???
+        navigate("/");
+
       })
       .catch((err) => console.log("err", err));
   };
 }
+
+// export function LogInConfirmation(dispatch, getState) {
+
+// const tokenReceived = getState().auth.accessToken;
+
+// return function confirmLogIn(dispatch) {
+//   //Fetch user data once token is registered....
+//   // console.log("state of accessToken: ", tokenReceived);
+
+// }};
