@@ -3,6 +3,7 @@ import feedReducer from "./feed/slice";
 import postPageReducer from "./postPage/slice";
 import authReducer from "./auth/slice";
 import signupReducer from "./signup/slice";
+import userpostReducer from "./userpost/slice";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     postPage: postPageReducer,
     auth: authReducer,
     signup: signupReducer,
+    userpost: userpostReducer,
   },
 });
 

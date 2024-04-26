@@ -1,12 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { selectAuth } from "../store/auth/selectors";
 import { userLogOut } from "../store/auth/slice";
 import { newUserLogOut } from "../store/signup/slice";
-import { selectSignup} from "../store/signup/selectors";
+import { selectSignup } from "../store/signup/selectors";
+// import UserPostPage from "../pages/UserPostPage";
 
 export default function Toolbar() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const userName = useSelector(selectAuth);
   const newUserName = useSelector(selectSignup);
 
@@ -22,7 +24,16 @@ export default function Toolbar() {
           <>
             <h3>
               Welcome {newUserName.me} {userName.me} {""}
-              <button onClick={() => dispatch(userLogOut(), dispatch(newUserLogOut()))}>Log out!</button>
+              <button
+                onClick={() =>
+                  dispatch(userLogOut(), dispatch(newUserLogOut()))
+                }
+              >
+                Log out!
+              </button>
+              <button onClick={() => navigate("./newPost")}>
+                Make a Post yourself!
+              </button>
             </h3>
           </>
         )}

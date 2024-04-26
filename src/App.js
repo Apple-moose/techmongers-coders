@@ -6,19 +6,18 @@ import PostPage from "./pages/PostPage";
 import LoginPage from "./pages/LoginPage";
 import Toolbar from "./components/Toolbar";
 import { useEffect } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import { bootstrapLogInState } from "./store/auth/actions";
 import { bootstrapNewLogInState } from "./store/signup/actions";
+import UserPostPage from "./pages/UserPostPage";
 
 function App() {
-
   const dispatch = useDispatch();
 
   useEffect(() => {
-  dispatch(bootstrapLogInState());
-  dispatch(bootstrapNewLogInState())
+    dispatch(bootstrapLogInState());
+    dispatch(bootstrapNewLogInState());
   }, [dispatch]);
-
 
   return (
     <div>
@@ -27,6 +26,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/post/:id" element={<PostPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/newPost" element={<UserPostPage />} />
       </Routes>
     </div>
   );
