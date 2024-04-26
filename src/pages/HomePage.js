@@ -27,7 +27,7 @@ export default function HomePage() {
               <p>
                 {moment(post.createdAt).format("DD-MM-YYYY")} *{" "}
                 {post.tags.map((p) => (
-                  <span className="greybox">{p.tag} </span>
+                  <span key={p.id} className="greybox">{p.tag} </span>
                 ))}
               </p>
             </p>

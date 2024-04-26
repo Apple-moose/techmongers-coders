@@ -2,10 +2,13 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { selectAuth } from "../store/auth/selectors";
 import { userLogOut } from "../store/auth/slice";
+import { newUserLogOut } from "../store/signup/slice";
+import { selectSignup} from "../store/signup/selectors";
 
 export default function Toolbar() {
   const dispatch = useDispatch();
   const userName = useSelector(selectAuth);
+  const newUserName = useSelector(selectSignup);
 
   return (
     <div className="App-header">
@@ -13,13 +16,13 @@ export default function Toolbar() {
         <Link to={"./."}>HOME</Link>
       </h2>
       <h2 style={{ color: "white" }}>
-        {!userName.me ? (
+        {!newUserName.me && !userName.me ? (
           <Link to={"./login"}>login</Link>
         ) : (
           <>
             <h3>
-              Welcome {userName.me} {""}
-              <button onClick={() => dispatch(userLogOut())}>Log out!</button>
+              Welcome {newUserName.me} {userName.me} {""}
+              <button onClick={() => dispatch(userLogOut(), dispatch(newUserLogOut()))}>Log out!</button>
             </h3>
           </>
         )}

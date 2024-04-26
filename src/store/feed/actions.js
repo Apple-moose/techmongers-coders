@@ -17,4 +17,4 @@ export const fetchPosts = async (dispatch, getState) => {
   } catch (e) {
     console.log(e.message);
   }
-};
+}; 

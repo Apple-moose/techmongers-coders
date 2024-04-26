@@ -7,15 +7,18 @@ import LoginPage from "./pages/LoginPage";
 import Toolbar from "./components/Toolbar";
 import { useEffect } from "react";
 import { useDispatch } from 'react-redux';
-import { LogInConfirmation } from "./store/auth/actions";
+import { bootstrapLogInState } from "./store/auth/actions";
+import { bootstrapNewLogInState } from "./store/signup/actions";
 
 function App() {
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  // dispatch(LogInConfirmation());
-  // }, []);
+  useEffect(() => {
+  dispatch(bootstrapLogInState());
+  dispatch(bootstrapNewLogInState())
+  }, [dispatch]);
+
 
   return (
     <div>

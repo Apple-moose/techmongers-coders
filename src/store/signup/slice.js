@@ -6,8 +6,8 @@ const initialState = {
   loading: false,
 };
 
-const authSlice = createSlice({
-  name: "auth",
+const signupSlice = createSlice({
+  name: "signup",
   initialState,
   reducers: {
     startLoading: (state) => {
@@ -22,8 +22,8 @@ const authSlice = createSlice({
       state.me = action.payload;
       // console.log(action.payload)
     },
-    userLogOut: (state) => {
-      localStorage.removeItem("token");
+    newUserLogOut: (state) => {
+      localStorage.removeItem("tokenNew");
       state.me = null;
       state.accessToken = null;
       console.log(localStorage);
@@ -31,7 +31,7 @@ const authSlice = createSlice({
   },
 });
 
-export const { startLoading, getToken, userLoggedIn, userLogOut } =
-  authSlice.actions;
+export const { startLoading, getToken, userLoggedIn, newUserLogOut } =
+  signupSlice.actions;
 
-export default authSlice.reducer;
+export default signupSlice.reducer;

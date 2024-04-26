@@ -1,27 +1,28 @@
 import axios from "axios";
 import { startLoading, getToken, userLoggedIn } from "./slice";
-import { newUserLogOut } from "../signup/slice";
+import { userLogOut } from "../auth/slice";
 
-export function Login(email, password, navigate) {
+export function Signup(signEmail, signPassword, signName, navigate) {
+  const API_URL = "https://coders-network-api.onrender.com";
+
   return function thunk(dispatch, getState) {
-    // make a POST API request to `/login`
-    //default is kelley@codaisseur.com password:abcd
     dispatch(startLoading());
     axios
-      .post("https://coders-network-api.onrender.com/login", {
-        email: email,
-        password: password,
+      .post(API_URL + "/signup", {
+        name: signName,
+        email: signEmail,
+        password: signPassword,
       })
       .then((data) => {
         const token = data.data.jwt;
         dispatch(getToken(token));
-        dispatch(newUserLogOut())
+        dispatch(userLogOut());
       })
-      .catch((err) => console.log("Login Error", err));
+      .catch((err) => console.log("New User Login Error", err));
 
-    const tokenReceived = getState().auth.accessToken;
-    localStorage.setItem("token", tokenReceived);
-    console.log(localStorage);
+    const tokenReceived = getState().signup.accessToken;
+    localStorage.setItem("tokenNew", tokenReceived);
+    console.log("tokenNew is: ", localStorage);
 
     axios
       .get("https://coders-network-api.onrender.com/me", {
@@ -31,16 +32,14 @@ export function Login(email, password, navigate) {
         const userName = data.data.name;
         dispatch(startLoading());
         dispatch(userLoggedIn(userName));
-        // Catch logged-in confirmation here!!!!
-        //???for some reason call useNavigate on the loginPage???
         navigate("/");
       })
       .catch((err) => console.log("err", err));
   };
 }
 
-export const bootstrapLogInState = () => async (dispatch) => {
-  const tokenFromStorage = localStorage.getItem("token");
+export const bootstrapNewLogInState = () => async (dispatch) => {
+  const tokenFromStorage = localStorage.getItem("tokenNew");
 
   if (!tokenFromStorage) return;
 
